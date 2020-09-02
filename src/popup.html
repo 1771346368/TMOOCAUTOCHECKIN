@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>
+        弹出页面
+    </title>
+    <script type="text/javascript" src="popup.js"></script>
+</head>
+<style>
+    p {
+        margin: 0;
+    }
+
+    label {
+        font-family: FangSong_GB2312;
+        font-size: 14px;
+    }
+
+    .ps {
+        text-align: right;
+        color: #cccccc;
+    }
+
+    h4 {
+        margin: 0;
+        margin-top: 4px;
+    }
+
+    #info {
+        font-size: 24px;
+    }
+    .warning {
+        color: #F56C6C;
+    }
+    .success {
+        color: #67c23a;
+    }
+    a {
+        text-decoration: none;
+        color: #336699;
+        transition: all .3s;
+        border-bottom: 1px solid white;
+    }
+
+    a:hover {
+        border-bottom: 1px solid;
+        color: #CCCC33;
+    }
+
+    .submitBtn {
+        background-color: #fff;
+        border: 1px solid #ccc;
+        color: #666666;
+        cursor: pointer;
+        height: 30px;
+        border-radius: 5px;
+        margin-top: 10px;
+        margin-left: 65px;
+        transition: all .2s;
+    }
+
+    .submitBtn:hover {
+        background-color: #409eff;
+        color: #fff;
+    }
+
+    .config-item {
+        display: inline-block;
+        width: 50%;
+        float: left;
+        height: 26px;
+        line-height: 26px;
+        font-size: 14px;
+    }
+
+    .rdo {
+        width: 0px;
+        height: 12px;
+        appearance: none;
+        -webkit-appearance: none;
+        outline: none;
+        background-color: #888;
+        margin-right: 30px;
+        border-radius: 50%;
+        position: relative;
+    }
+
+    .rdo:hover:before {
+        border: 1px solid #ea879a;
+    }
+
+    .rdo:hover:after {
+        background-color: #ea879a;
+    }
+
+    .rdo:hover {
+        border-color: #ea879a;
+    }
+
+    .rdo:before,
+    .rdo:after {
+        content: '';
+        display: block;
+        position: absolute;
+        border-radius: 50%;
+        transition: .3s ease;
+    }
+
+    .rdo:before {
+        top: 0px;
+        left: 0px;
+        width: 18px;
+        height: 18px;
+        background-color: #fff;
+        border: 1px solid #888;
+        cursor: pointer;
+    }
+
+    .rdo:after {
+        top: 6px;
+        left: 6px;
+        width: 8px;
+        height: 8px;
+        background-color: #fff;
+        cursor: pointer;
+    }
+
+    .rdo:checked:after {
+        top: 4px;
+        left: 4px;
+        width: 12px;
+        height: 12px;
+        background-color: #ea879a;
+        cursor: pointer;
+    }
+
+    .rdo:checked:before {
+        border-color: #ea879a;
+    }
+
+    /*input倍数对齐*/
+
+    .input_text {
+        margin-top: -2px;
+        margin-bottom: 1px;
+        vertical-align: middle;
+        text-align: center;
+        margin-left: 5px;
+        margin-right: 5px;
+        font-size: 10px;
+        transition: .3s ease;
+        width: 50px;
+        border-radius: 1px;
+        border: 1px solid #ccc;
+        height: 15px;
+    }
+
+    #dama-config .input_text {
+        margin-left: 0;
+        width: 200px;
+    }
+
+    .input_text:hover {
+        border: 1px solid #CCFFFF;
+        box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 4px;
+        -moz-box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 4px;
+        -webkit-box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 4px;
+    }
+
+    /*新的*/
+
+    body {
+        width: 400px;
+        margin: 0 auto;
+        /*background-color: #ECEFF1;*/
+    }
+
+    .title {
+        font-family: STZhongsong;
+        color: #ffffff;
+        font-size: 16px;
+        margin: 0;
+        margin-left: 30px;
+    }
+
+    .title span {
+        color: #3399CC;
+    }
+
+    /*字体*/
+
+    .two_font {
+        font-family: SimHei;
+        font-size: 18px;
+        padding-bottom: 10px;
+        text-align: left;
+    }
+
+    .three_font {
+        font-family: FangSong_GB2312;
+        font-size: 14px;
+        text-align: left;
+        margin-bottom: 7px;
+    }
+
+    /*头部*/
+
+    .head {
+        width: 100%;
+        height: 72px;
+        line-height: 72px;
+        text-align: left;
+        background-image: url("../img/navtu.webp");
+    }
+
+    /*居中对齐*/
+
+    .center-float-left {
+        display: -webkit-box;
+        display: -moz-box;
+        display: -ms-flexbox;
+        display: -webkit-flex;
+        display: -o-flex;
+        display: flex;
+        -webkit-align-items: center;
+        -moz-align-items: center;
+        -ms-align-items: center;
+        -o-align-items: center;
+        align-items: center;
+        line-height: 1.4;
+        justify-content: center
+    }
+
+    .content_top {
+        width: 100%;
+        margin-top: 0px;
+    }
+
+    /*内容第一层*/
+
+    .content_topleft {
+        color: #003366;
+        width: 100%;
+        padding: 0 20px;
+    }
+
+    .content_topright {
+        width: 40%;
+        height: 130px;
+        /*直接设置固定高度了，要加内容注意看高度*/
+        color: #003366;
+    }
+
+    /*分类标题*/
+
+    .one_title {
+        border-bottom: 1px solid #CCCCCC;
+        font-family: STHeiti;
+        padding: 4px 0;
+        font-size: 14px;
+    }
+
+    /*标题下内容*/
+
+    .three_font span {
+        color: #333333;
+    }
+
+    .mt10 {
+        margin-top: 10px;
+    }
+
+    /*底部分类*/
+
+    .content_bottom {
+        overflow: hidden;
+        padding: 0 20px;
+        margin: 0 auto;
+        color: #003366;
+        /*margin-top: 10px;*/
+    }
+
+    .content_bottom .one_title {
+        margin-bottom: 10px;
+        padding-bottom: 10px;
+    }
+
+    .width_50 {
+        margin-top: 10px;
+    }
+
+    /*底部项目链接*/
+
+    .bottom_div {
+        padding: 0 20px;
+        margin: 0 auto;
+        color: #003366;
+        margin-top: 10px;
+    }
+
+    .bottom_div ul {
+        width: 100%;
+        height: auto;
+        position: relative;
+        top: 0;
+        padding: 0;
+        left: 0;
+        list-style: none;
+    }
+
+    li {
+        width: 50%;
+        margin-bottom: 8px;
+        float: left;
+    }
+
+    /*移上去变手*/
+
+    .shou {
+        cursor: pointer;
+    }
+
+    #tiku {
+        float: left;
+        width: 80px;
+    }
+
+    /*渲染的公告*/
+
+    #injection p {
+        font-size: 13px;
+        line-height: 18px;
+        margin-bottom: 8px;
+    }
+
+    #vtoken,
+    #dama {
+        float: right;
+    }
+
+    .edit {
+        width: 200px;
+        margin-left: 25px;
+        height: 24.8px;
+        margin-top: 5px;
+        outline: none;
+    }
+
+    #vtoken {
+        margin-top: 1px;
+    }
+
+    .btn {
+        height: 20px;
+        line-height: 16px;
+        background-color: #008CBA;
+        border: none;
+        color: white;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+    }
+
+    .page {
+        overflow: hidden;
+    }
+
+    /*以下为按钮样式*/
+
+    .one_title .button {
+        /*float: left;*/
+        display: block;
+        padding: 0.5em 1em;
+        border: none;
+        background: none;
+        color: inherit;
+        vertical-align: middle;
+        position: relative;
+        z-index: 1;
+        -webkit-backface-visibility: hidden;
+        -moz-osx-font-smoothing: grayscale;
+    }
+
+    .one_title .button:focus {
+        outline: none;
+    }
+
+    .one_title .button>span {
+        vertical-align: middle;
+    }
+
+    .bg-1 .button {
+        color: #37474f;
+        border-color: #37474f;
+    }
+
+    .button--tamaya {
+        overflow: hidden;
+        color: #003366;
+        min-width: 150px;
+    }
+
+    .button--tamaya.button--inverted {
+        color: #37474f;
+        border-color: #37474f;
+    }
+
+    .button--tamaya::before,
+    .button--tamaya::after {
+        content: attr(data-text);
+        position: absolute;
+        width: 100%;
+        height: 50%;
+        left: 0;
+        background: #003366;
+        color: #fff;
+        /*overflow: hidden;*/
+        -webkit-transition: -webkit-transform 0.3s;
+        transition: transform 0.3s;
+        -webkit-transition-timing-function: cubic-bezier(0.2, 1, 0.3, 1);
+        transition-timing-function: cubic-bezier(0.2, 1, 0.3, 1);
+    }
+
+    .button--tamaya.button--inverted::before,
+    .button--tamaya.button--inverted::after {
+        background: #fff;
+        color: #37474f;
+    }
+
+    .button--tamaya::before {
+        top: 0;
+        padding-top: 1em;
+    }
+
+    .button--tamaya::after {
+        bottom: 0;
+        line-height: 0;
+    }
+
+    .button--tamaya>span {
+        display: block;
+        -webkit-transform: scale3d(0.2, 0.2, 1);
+        transform: scale3d(0.2, 0.2, 1);
+        opacity: 0;
+        -webkit-transition: -webkit-transform 0.3s, opacity 0.3s;
+        transition: transform 0.3s, opacity 0.3s;
+        -webkit-transition-timing-function: cubic-bezier(0.2, 1, 0.3, 1);
+        transition-timing-function: cubic-bezier(0.2, 1, 0.3, 1);
+    }
+
+    .button--tamaya:hover::before {
+        -webkit-transform: translate3d(0, -100%, 0);
+        transform: translate3d(0, -100%, 0);
+    }
+
+    .button--tamaya:hover::after {
+        -webkit-transform: translate3d(0, 100%, 0);
+        transform: translate3d(0, 100%, 0);
+    }
+
+    .button--tamaya:hover>span {
+        opacity: 1;
+        -webkit-transform: scale3d(1, 1, 1);
+        transform: scale3d(1, 1, 1);
+    }
+
+    .one_title_show .button--border-thick {
+        border: 3px solid;
+    }
+
+    .button--size-s {
+        font-size: 10px;
+    }
+
+    @-webkit-keyframes anim-moema-1 {
+        60% {
+            -webkit-transform: scale3d(0.8, 0.8, 1);
+            transform: scale3d(0.8, 0.8, 1);
+        }
+
+        85% {
+            -webkit-transform: scale3d(1.1, 1.1, 1);
+            transform: scale3d(1.1, 1.1, 1);
+        }
+
+        100% {
+            -webkit-transform: scale3d(1, 1, 1);
+            transform: scale3d(1, 1, 1);
+        }
+    }
+
+    @keyframes anim-moema-1 {
+        60% {
+            -webkit-transform: scale3d(0.8, 0.8, 1);
+            transform: scale3d(0.8, 0.8, 1);
+        }
+
+        85% {
+            -webkit-transform: scale3d(1.1, 1.1, 1);
+            transform: scale3d(1.1, 1.1, 1);
+        }
+
+        100% {
+            -webkit-transform: scale3d(1, 1, 1);
+            transform: scale3d(1, 1, 1);
+        }
+    }
+
+    @-webkit-keyframes anim-moema-2 {
+        to {
+            opacity: 0;
+            -webkit-transform: scale3d(1, 1, 1);
+            transform: scale3d(1, 1, 1);
+        }
+    }
+
+    @keyframes anim-moema-2 {
+        to {
+            opacity: 0;
+            -webkit-transform: scale3d(1, 1, 1);
+            transform: scale3d(1, 1, 1);
+        }
+    }
+
+    .min-a {
+        color: #3399cc;
+        font-weight: normal;
+        font-size: 12px;
+    }
+
+    .container {
+        margin-left: 65px;
+        width: 240px;
+        height: 110px;
+    }
+</style>
+
+<body>
+    <div class="head">
+        <h3 class="title"><span>TMOOC</span>自动签到</h3>
+
+    </div>
+    <div class="content_top center-float-left">
+        <div class="content_topleft">
+            <h4 class="one_title">签到</h4>
+            <div id="injection" class="mt10">
+                <a href="http://tmooc.cn" id="intoT" target="_black">点击进入TMOOC官网</a>
+            </div>
+            <p class="" id="info"></p>
+        </div>
+    </div>
+
+    <div class="content_bottom">
+        <h4 class="one_title">
+            <div class="one_title_show">
+                <span>插件配置:</span>
+                <div class="container">
+                    <input type="text" id="Tuser" class="input_text edit uerInput" placeholder="用户名"
+                        style="font-size: 12px;">
+                    <input type="password" id="Tpwd" class="input_text edit" placeholder="密码" style="font-size: 12px;">
+                    <input type="button" id="setUser" class="submitBtn" onclick="" value="保存用户名&&密码">
+                </div>
+            </div>
+        </h4>
+
+    </div>
+    <div class="bottom_div">
+        <h4 class="one_title"><span>其他:</span></h4>
+        <ul>
+            <li><a class="three_font" href="https://github.com/CodFrm/cxmooc-tools" target="_black">GitHub开源地址</a></li>
+            <li><a class="three_font" href="https://github.com/CodFrm/cxmooc-tools/issues"
+                    target="_black">Bug/意见/题目反馈地址</a>
+            </li>
+
+        </ul>
+    </div>
+    <div style="padding:0 20px;margin-top: 10px;">
+    </div>
+</body>
+<script src="popup.js">
+    
+</script>
+
+</html>
