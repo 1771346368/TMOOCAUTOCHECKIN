@@ -1,7 +1,10 @@
 setTimeout(() => {
   var bg = chrome.extension.getBackgroundPage()
   bg.getres()
+  bg.getcheck()
   var result = bg.getStorage()
+  var check = bg.getOn()
+  document.querySelector('#rand-answer').checked = check
   var info = document.querySelector('#info')
   // alert(result)
   if (result == undefined) {
@@ -14,20 +17,24 @@ setTimeout(() => {
     info.classList.remove('warning')
     info.classList.add('success')
   }
+  document.querySelector('#rand-answer').onclick = function () {
+    var On = document.querySelector('#rand-answer').checked
+    chrome.storage.local.set({ on: On }, () => { }) 
+  }
   document.querySelector('#intoT').onclick = function () {
     if (result != undefined) {
-      setTimeout(() => {
-        var sendMessageToContentScript = function (message, callback) {
-          chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
-            chrome.tabs.sendMessage(tabs[0].id, message, function (response) {
-              if (callback) callback(response);
-            });
-          });
-        }
-        sendMessageToContentScript({ cmd: 'test', value: '你好，我是popup！' }, function (response) {
-          console.log('来自content的回复：' + response);
-        });
-      }, 500);
+      // setTimeout(() => {
+      //   var sendMessageToContentScript = function (message, callback) {
+      //     chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
+      //       chrome.tabs.sendMessage(tabs[0].id, message, function (response) {
+      //         if (callback) callback(response);
+      //       });
+      //     });
+      //   }
+      //   sendMessageToContentScript({ cmd: 'test', value: '你好，我是popup！' }, function (response) {
+      //     console.log('来自content的回复：' + response);
+      //   });
+      // }, 500);
 
       // alert(result.userName)
       // chrome.runtime.sendMessage(result, (response) => {
@@ -45,11 +52,11 @@ setTimeout(() => {
       passWord: Tpwd
     }
     chrome.storage.local.set({ user: user }, () => {
-      alert('set success')
+      alert('用户名&&密码设置成功')
       bg.getres()
     })
   }
-}, 500);
+}, 100);
 
 
 
