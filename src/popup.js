@@ -19,7 +19,7 @@ setTimeout(() => {
   }
   document.querySelector('#rand-answer').onclick = function () {
     var On = document.querySelector('#rand-answer').checked
-    chrome.storage.local.set({ on: On }, () => { }) 
+    chrome.storage.local.set({ on: On }, () => { })
   }
   document.querySelector('#intoT').onclick = function () {
     if (result != undefined) {
@@ -51,6 +51,37 @@ setTimeout(() => {
       userName: Tuser,
       passWord: Tpwd
     }
+
+    /*8进制加密*/
+    function Encrypt(user) {
+      for (var keys in user) {
+        var monyer = [];
+        var i;
+        for (i = 0; i < user[keys].length; i++) {
+          monyer += "\\" + user[keys].charCodeAt(i).toString(8);
+        }
+        user[keys] = monyer;
+      }
+      return user;
+    }
+    user = Encrypt(user)
+
+
+
+    /*8进制解密*/
+    // function Decrypt(user) {
+    //   for (var keys in user) {
+    //     var monyer = [];
+    //     var i;
+    //     var s = user[keys].split("\\");
+    //     for (i = 1; i < s.length; i++)
+    //       monyer += String.fromCharCode(parseInt(s[i], 8));
+    //     user[keys] = monyer;
+    //   }
+    //   return user;
+    // }
+    // user = Decrypt(user);
+
     chrome.storage.local.set({ user: user }, () => {
       alert('用户名&&密码设置成功')
       bg.getres()

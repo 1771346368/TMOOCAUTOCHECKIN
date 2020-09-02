@@ -2,7 +2,7 @@
   'use strict';
   chrome.storage.local.get('user', (result) => {
     chrome.storage.local.get('on', (res) => {
-      console.log(res.on, '***************')
+      // console.log(res.on, '***************')
       var On = res.on
       if (On == undefined) {
         On = true
@@ -11,10 +11,26 @@
         On = true;
       } else if (On == false) {
         On = false;
+        return;
       }
-      console.log(result)
-      var username = result.user.userName;
-      var password = result.user.passWord;
+      var user = result.user;
+      var Decrypt = function (user) {
+        for (var keys in user) {
+          var monyer = [];
+          var i;
+          var s = user[keys].split("\\");
+          for (i = 1; i < s.length; i++) {
+            monyer += String.fromCharCode(parseInt(s[i], 8));
+          }
+          user[keys] = monyer;
+        }
+        return user;
+      }
+      user = Decrypt(user);
+      // console.log(user);
+      // console.log(result)
+      var username = user.userName;
+      var password = user.passWord;
       if (window.location.href === "http://www.tmooc.cn/" && On) {
         setInterval(() => {
           document.querySelector('#tobbar_username').click();

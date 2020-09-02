@@ -9,7 +9,7 @@ var getres = function () {
 getres()
 var getcheck = function () {
   chrome.storage.local.get('on', (result) => {
-    console.log(result.on, '@@@@@@@@@@@@@@@@@@@@')
+    // console.log(result.on, '@@@@@@@@@@@@@@@@@@@@')
     if (result.on == undefined) {
       On = true
       chrome.storage.local.set({ on: true }, () => { })
