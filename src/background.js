@@ -1,5 +1,6 @@
 var res;
 var On;
+
 var getres = function () {
   // 获取user
   chrome.storage.local.get('user', (result) => {

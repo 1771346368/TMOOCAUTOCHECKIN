@@ -31,51 +31,64 @@
       // console.log(result)
       var username = user.userName;
       var password = user.passWord;
-      if (window.location.href === "http://www.tmooc.cn/" && On) {
-        setInterval(() => {
-          document.querySelector('#tobbar_username').click();
-        }, 500);
-      } else if (window.location.href === "http://uc.tmooc.cn/login/jumpTologin" && On) {
-        // var getInput = function () {
-        //   if (document.querySelector('#js_submit_login') == null) {
-        //     setTimeout(getInput, 100);
-        //   } else {
-        //     document.querySelector('#js_account_pm').value = '1771346368@qq.com'
-        //     document.querySelector('#js_password').value = 'dr123456'
-        //     document.querySelector('#js_submit_login').click();
-        //   }
-        // }
-        // getInput()
-        setTimeout(() => {
-          document.querySelector('#js_account_pm').value = username
-          document.querySelector('#js_password').value = password
-          document.querySelector('#js_submit_login').click();
-        }, 1000);
-      } else if ((window.location.href === "http://uc.tmooc.cn/userCenter/toUserSingUpCoursePage" || window.location.href === 'http://uc.tmooc.cn/userCenter/toUserCenterPage') && On) {
-        // var getCou = function () {
-        //   if (document.querySelector('.btn-0523x') == null) {
-        //     setTimeout(getCou, 100);
-        //   } else {
-        //     document.querySelector('.btn-0523x').click();
-        //   }
-        // }
-        setTimeout(() => {
-          document.querySelector('.btn-0523x').click();
-        }, 1000);
-      } else if (window.location.href === "http://tts.tmooc.cn/studentCenter/toMyttsPage" && On) {
-        // var getCheckin = function () {
-        //   if (document.querySelector('.bbb1') == null) {
-        //     setTimeout(getCheckin, 100);
-        //   } else {
-        //     document.querySelector('.bbb1').click();
-        //   }
-        // }
-        setTimeout(() => {
-          document.querySelector('.bbb1').click();
-          chrome.storage.local.set({ on: false }, () => {
+      if (On) {
+        if (window.location.href === "http://www.tmooc.cn/") {
+          var getInto = function () {
+            if (document.querySelector('#tobbar_username') == null) {
+              setTimeout(getInto, 100);
+            } else {
+              document.querySelector('#tobbar_username').click();
+            }
+          }
+          getInto()
+          // setTimeout(() => {
+          //   document.querySelector('#tobbar_username').click();
+          // }, 1000);
+        } else if (window.location.href === "http://uc.tmooc.cn/login/jumpTologin") {
+          var getInput = function () {
+            if (document.querySelector('#js_submit_login') == null) {
+              setTimeout(getInput, 100);
+            } else {
+              document.querySelector('#js_account_pm').value = username
+              document.querySelector('#js_password').value = password
+              document.querySelector('#js_submit_login').click();
+            }
+          }
+          getInput()
+          // setTimeout(() => {
+          //   document.querySelector('#js_account_pm').value = username
+          //   document.querySelector('#js_password').value = password
+          //   document.querySelector('#js_submit_login').click();
+          // }, 1000);
+        } else if ((window.location.href === "http://uc.tmooc.cn/userCenter/toUserSingUpCoursePage" || window.location.href === 'http://uc.tmooc.cn/userCenter/toUserCenterPage')) {
+          var getCou = function () {
+            if (document.querySelector('.btn-0523x') == null) {
+              setTimeout(getCou, 100);
+            } else {
+              document.querySelector('.btn-0523x').click();
+            }
+          }
+          getCou()
+          // setTimeout(() => {
+          //   document.querySelector('.btn-0523x').click();
+          // }, 1000);
+        } else if (window.location.href === "http://tts.tmooc.cn/studentCenter/toMyttsPage") {
+          var getCheckin = function () {
+            if (document.querySelector('.bbb1') == null) {
+              setTimeout(getCheckin, 100);
+            } else {
+              document.querySelector('.bbb1').click();
+              chrome.storage.local.set({ on: false }, () => { })
+            }
+          }
+          getCheckin()
+          // setTimeout(() => {
+          //   document.querySelector('.bbb1').click();
+          //   chrome.storage.local.set({ on: false }, () => {
 
-          })
-        }, 1000);
+          //   })
+          // }, 1000);
+        }
       }
     })
   })

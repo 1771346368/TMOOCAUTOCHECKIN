@@ -2,9 +2,11 @@ setTimeout(() => {
   var bg = chrome.extension.getBackgroundPage()
   bg.getres()
   bg.getcheck()
-  var result = bg.getStorage()
-  var check = bg.getOn()
-  document.querySelector('#rand-answer').checked = check
+  // 上面两行是重新获取用户名、密码与开关
+  var result = bg.getStorage();
+
+  document.querySelector('#rand-answer').checked = bg.getOn()
+  // 设置插件是否开启的选项的选中与否
   var info = document.querySelector('#info')
   // alert(result)
   if (result == undefined) {
@@ -22,6 +24,10 @@ setTimeout(() => {
     chrome.storage.local.set({ on: On }, () => { })
   }
   document.querySelector('#intoT').onclick = function () {
+    // 每次点击进入TMOOC官网时设置为On
+    (function () {
+      chrome.storage.local.set({ on: true }, () => { })
+    })()
     if (result != undefined) {
       // setTimeout(() => {
       //   var sendMessageToContentScript = function (message, callback) {
