@@ -1,4 +1,4 @@
-(function () {
+window.onload = function () {
   'use strict';
   chrome.storage.local.get('user', (result) => {
     chrome.storage.local.get('on', (res) => {
@@ -34,10 +34,11 @@
       if (On) {
         if (window.location.href === "http://www.tmooc.cn/") {
           var getInto = function () {
-            if (document.querySelector('#tobbar_username') == null) {
+            let username = document.querySelector('#tobbar_username')
+            if (username == null) {
               setTimeout(getInto, 100);
             } else {
-              document.querySelector('#tobbar_username').click();
+              username.click();
             }
           }
           getInto()
@@ -46,12 +47,13 @@
           // }, 1000);
         } else if (window.location.href === "http://uc.tmooc.cn/login/jumpTologin") {
           var getInput = function () {
-            if (document.querySelector('#js_submit_login') == null) {
+            let submitLogin = document.querySelector('#js_submit_login')
+            if (submitLogin == null) {
               setTimeout(getInput, 100);
             } else {
               document.querySelector('#js_account_pm').value = username
               document.querySelector('#js_password').value = password
-              document.querySelector('#js_submit_login').click();
+              submitLogin.click();
             }
           }
           getInput()
@@ -62,10 +64,11 @@
           // }, 1000);
         } else if ((window.location.href === "http://uc.tmooc.cn/userCenter/toUserSingUpCoursePage" || window.location.href === 'http://uc.tmooc.cn/userCenter/toUserCenterPage')) {
           var getCou = function () {
-            if (document.querySelector('.btn-0523x') == null) {
+            let _0523x = document.querySelector('.btn-0523x')
+            if (_0523x == null) {
               setTimeout(getCou, 100);
             } else {
-              document.querySelector('.btn-0523x').click();
+              _0523x.click();
             }
           }
           getCou()
@@ -74,11 +77,17 @@
           // }, 1000);
         } else if (window.location.href === "http://tts.tmooc.cn/studentCenter/toMyttsPage") {
           var getCheckin = function () {
-            if (document.querySelector('.bbb1') == null) {
+            let bbb1 = document.querySelector('.bbb1')
+            if (bbb1 == null) {
               setTimeout(getCheckin, 100);
             } else {
-              document.querySelector('.bbb1').click();
-              chrome.storage.local.set({ on: false }, () => { })
+              // console.log('5555555555555')
+              // console.log(bbb1)
+              bbb1.click();
+              
+              setTimeout(() => {
+                chrome.storage.local.set({ on: false }, () => { })
+              }, 200);
             }
           }
           getCheckin()
@@ -152,4 +161,4 @@
     }, 1000);
   }
 */
-})();
+}
