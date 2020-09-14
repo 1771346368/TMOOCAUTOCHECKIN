@@ -36,8 +36,6 @@
     "notifications",
     "<all_urls>"
   ],
-  "web_accessible_resources": [
-    "src/storage.js"
-  ],
+  "web_accessible_resources": [],
   "homepage_url": "https://drghost.top"
 }
