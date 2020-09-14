@@ -4,23 +4,24 @@ setTimeout(() => {
   bg.getcheck()
   // 上面两行是重新获取用户名、密码与开关
   var result = bg.getStorage();
-
-  document.querySelector('#rand-answer').checked = bg.getOn()
+  document.querySelector('#pluginToogle').checked = bg.getOn()
   // 设置插件是否开启的选项的选中与否
   var info = document.querySelector('#info')
   // alert(result)
-  if (result == undefined) {
-    info.innerHTML = '第一次使用请先填写用户名与密码'
-    info.classList.remove('success')
-    info.classList.add('warning')
-  } else {
-
-    info.innerHTML = '用户名与密码已填写';
-    info.classList.remove('warning')
-    info.classList.add('success')
+  var setText = function () {
+    if (result == undefined) {
+      info.innerHTML = '第一次使用请先填写用户名与密码'
+      info.classList.remove('success')
+      info.classList.add('warning')
+    } else {
+      info.innerHTML = '用户名与密码已填写';
+      info.classList.remove('warning')
+      info.classList.add('success')
+    }
   }
-  document.querySelector('#rand-answer').onclick = function () {
-    var On = document.querySelector('#rand-answer').checked
+  setText()
+  document.querySelector('#pluginToogle').onclick = function () {
+    var On = document.querySelector('#pluginToogle').checked
     chrome.storage.local.set({ on: On }, () => { })
   }
   document.querySelector('#intoT').onclick = function () {
@@ -90,6 +91,7 @@ setTimeout(() => {
 
     chrome.storage.local.set({ user: user }, () => {
       alert('用户名&&密码设置成功')
+      setText()
       bg.getres()
     })
   }
