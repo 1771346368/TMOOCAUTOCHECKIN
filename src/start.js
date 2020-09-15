@@ -1,9 +1,11 @@
-const TMOOOC = 'http://www.tmooc.cn/';
+const TMOOC = 'http://www.tmooc.cn/';
 const LOGIN = 'http://uc.tmooc.cn/login/jumpTologin'
 const USERCOURSE = 'http://uc.tmooc.cn/userCenter/toUserSingUpCoursePage'
 const USERCENTER = 'http://uc.tmooc.cn/userCenter/toUserCenterPage'
 const MYTTS = 'http://tts.tmooc.cn/studentCenter/toMyttsPage'
-var username, password;
+var count = 0;
+var username;
+var password;
 var checkIn = function () {
   chrome.storage.local.get('user', (result) => {
     chrome.storage.local.get('on', (res) => {
@@ -22,23 +24,33 @@ var checkIn = function () {
       user = Decrypt(user);
       username = user.userName;
       password = user.passWord;
-      if (On) {
-        switch (window.location.href) {
-          case TMOOOC:
-            getInto();
-            break;
-          case LOGIN:
-            getInput();
-            break;
-          case USERCOURSE:
-          case USERCENTER:
-            getCoures();
-            break;
-          case MYTTS:
-            getCheckin();
-            break;
-        }
+      // 改为传参
+      // if (On) {
+      // switch (window.location.href) {
+      //   case TMOOC:
+      //     getInto();
+      //     break;
+      //   case LOGIN:
+      //     getInput(username, password);
+      //     break;
+      //   case USERCOURSE:
+      //   case USERCENTER:
+      //     getCoures();
+      //     break;
+      //   case MYTTS:
+      //     getCheckin();
+      //     break;
+      // }
+      if (window.location.href == TMOOC) {
+        getInto();
+      } else if (window.location.href == LOGIN) {
+        getInput();
+      } else if (window.location.href == USERCENTER || window.location.href == USERCOURSE) {
+        getCoures();
+      } else if (window.location.href == MYTTS) {
+        getCheckin();
       }
+      // }
     })
   })
 }
@@ -56,27 +68,29 @@ var Decrypt = function (user) {
   return user;
 }
 var getInto = function () {
-  let username = document.querySelector('#tobbar_username')
-  if (username == null) {
-    setTimeout(getInto, 100);
+  let usernameBar = document.querySelector('#tobbar_username')
+  if (usernameBar == null) {
+    setTimeout(getInto, 200);
   } else {
-    username.click();
+    usernameBar.click();
   }
 }
 var getInput = function () {
   let submitLogin = document.querySelector('#js_submit_login')
   if (submitLogin == null) {
-    setTimeout(getInput, 100);
+    console.log('login', count++)
+    setTimeout(getInput, 200);
   } else {
     document.querySelector('#js_account_pm').value = username
     document.querySelector('#js_password').value = password
     submitLogin.click();
+    console.log('login---')
   }
 }
 var getCoures = function () {
   let _0523x = document.querySelector('.btn-0523x')
   if (_0523x == null) {
-    setTimeout(getCoures, 100);
+    setTimeout(getCoures, 200);
   } else {
     _0523x.click();
   }
