@@ -79,12 +79,11 @@ var getInput = function () {
   let submitLogin = document.querySelector('#js_submit_login')
   if (submitLogin == null) {
     console.log('login', count++)
-    setTimeout(getInput, 200);
+    setTimeout(getInput, 500);
   } else {
     document.querySelector('#js_account_pm').value = username
     document.querySelector('#js_password').value = password
     submitLogin.click();
-    console.log('login---')
   }
 }
 var getCoures = function () {
